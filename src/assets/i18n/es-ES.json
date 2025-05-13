@@ -1,5 +1,10 @@
 {
-    "prueba": {
-        "test": "prueba de traducción"
+    "header": {
+        "placeholder-search": "Buscar ciudad...",
+        "current-location": "Posición actual",
+        "aria-label": {
+            "open-search": "Abrir busqueda de ciudad",
+            "close-search": "Cerrar busqueda"
+        }
     }
 }
