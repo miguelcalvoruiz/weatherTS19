@@ -1,5 +1,10 @@
 {
-    "prueba": {
-        "test": "test of traductión"
+    "header": {
+        "placeholder-search": "Search city...",
+        "current-location": "Current location",
+        "aria-label": {
+            "open-search": "Open search of city",
+            "close-search": "Close search"
+        }
     }
 }
