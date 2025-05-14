@@ -1,0 +1,56 @@
+{
+    "header": {
+        "placeholder-search": "Buscar ciudad...",
+        "current-location": "Posición actual",
+        "aria-label": {
+            "open-search": "Abrir busqueda de ciudad",
+            "close-search": "Cerrar busqueda"
+        }
+    },
+    "current-weather": {
+        "now": "Ahora"
+    },
+    "utility": {
+        "air": {
+            "quality": {
+                "level": {
+                    "good": "Bueno",
+                    "fair": "Regular",
+                    "moderate": "Moderado",
+                    "poor": "Pobre",
+                    "veryPoor": "Muy Pobre"
+                },
+                "message": {
+                    "good": "La calidad del aire se considera satisfactoria, y la contaminación del aire representa poco o ningún riesgo",
+                    "fair": "La calidad del aire es aceptable; sin embargo, para algunos contaminantes puede haber una preocupación moderada por la salud para un número muy pequeño de personas que son inusualmente sensibles a la contaminación del aire.",
+                    "moderate": "Los miembros de grupos sensibles pueden experimentar efectos en la salud. El público en general es poco probable que se vea afectado.",
+                    "poor": "Todos pueden comenzar a experimentar efectos en la salud; los miembros de grupos sensibles pueden experimentar efectos más graves en la salud.",
+                    "veryPoor": "Advertencias de salud sobre condiciones de emergencia. Es más probable que toda la población se vea afectada."
+                }
+            }
+        },
+        "days": {
+            "sunday": "Domingo",
+            "monday": "Lunes",
+            "tuesday": "Martes",
+            "wednesday": "Miércoles",
+            "thursday": "Jueves",
+            "friday": "Viernes",
+            "saturday": "Sábado"
+        },
+        "months": {
+            "january": "Ene",
+            "february": "Feb",
+            "march": "Mar",
+            "april": "Abr",
+            "may": "May",
+            "june": "Jun",
+            "july": "Jul",
+            "august": "Ago",
+            "september": "Sep",
+            "october": "Oct",
+            "november": "Nov",
+            "december": "Dic"
+        }
+    }
+}

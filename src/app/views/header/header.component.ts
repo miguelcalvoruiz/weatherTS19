@@ -16,10 +16,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  searchTerm   = signal('');
+  searchTerm = signal('');
   searchResults = signal<any[]>([]);
-  searching    = signal(false);
-  private searchTimeout: any;
+  searching = signal(false);
+  private _searchTimeout: any;
   private _weatherApi = inject(WeatherApiService);
   private _router = inject(Router)
 
@@ -28,7 +28,7 @@ export class HeaderComponent {
   }
 
   search(): void {
-    clearTimeout(this.searchTimeout);
+    clearTimeout(this._searchTimeout);
     const term = this.searchTerm();
     if (!term) {
       this.clearSearchResults();
@@ -36,16 +36,16 @@ export class HeaderComponent {
     }
 
     this.searching.set(true);
-    this.searchTimeout = setTimeout(() => {
+    this._searchTimeout = setTimeout(() => {
       this._weatherApi.getGeo(term).subscribe({
-        next: (loc) => {
-          this.searchResults.set(loc);
+        next: (locations) => {
+          this.searchResults.set(locations);
         },
         error: () => {
           this.searchResults.set([]);
         }
       });
-    }, 50);
+    }, 50);    
   }
 
   clearSearchResults(): void {
@@ -53,7 +53,7 @@ export class HeaderComponent {
     this.searchResults.set([]);
     this.searching.set(false);
   }
-  
+
   navigateToWeather(lat: number, lon: number, event: Event): void {
     event.preventDefault();
     this.clearSearchResults();
