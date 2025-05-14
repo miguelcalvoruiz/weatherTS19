@@ -127,7 +127,6 @@ body {
     color: var(--on-background);
     font-size: var(--body-3);
     overflow: auto;
-    /* height: 300vh; */
 }
 
 :focus-visible {
@@ -258,6 +257,21 @@ body {
     display: none;
 }
 
+.card {
+    background-color: var(--surface);
+    color: var(--on-surface);
+}
+
+.card-lg {
+    border-radius: var(--radius-28);
+    padding: 20px;
+}
+
+.card-sm {
+    border-radius: var(--radius-16);
+    padding: 16px;
+}
+
 .heading {
     color: var(--white);
     font-size: var(--heading);
@@ -326,7 +340,6 @@ article.container {
     gap: 20px;
     height: 100%;
     overflow-y: auto;
-    /* for firefox */
     overflow-y: overlay;
 }
 
@@ -366,6 +379,16 @@ article.container::before {
         margin-block-end: 16px;
     }
 
+    .card-lg {
+        padding: 24px;
+    }
+
+    .card-sm {
+        padding: 20px;
+        display: grid;
+        grid-template-rows: min-content 1fr;
+    }
+
     .badge {
         top: 20px;
         right: 20px;
@@ -403,8 +426,20 @@ article.container::before {
         padding: 40px;
     }
 
+    .card-lg {
+        padding: 36px;
+    }
+
+    .card-sm {
+        padding: 24px;
+    }
+
     .title-1 {
         --title-1: 3.6rem;
+    }
+
+    .highlight-card.two .card-item {
+        column-gap: 24px;
     }
 
     main {

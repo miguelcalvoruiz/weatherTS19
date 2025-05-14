@@ -8,8 +8,8 @@ import { WeatherTranslateLoader } from '../../services/locale/translate.loader';
 import { localeInterceptor } from '../../interceptors/locale/locale.interceptor';
 
 export enum LOCALES {
-    EN = 'en-US',
-    ES = 'es-ES'
+    EN = 'en',
+    ES = 'es'
 }
 
 const DEFAULT_LOCALE = LOCALES.ES;

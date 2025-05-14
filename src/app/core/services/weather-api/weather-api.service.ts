@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,53 +10,58 @@ export class WeatherApiService {
   private readonly apiUrl = 'https://api.openweathermap.org/data/2.5';
   private readonly geoApiUrl = 'https://api.openweathermap.org/geo/1.0';
 
-  constructor(private http: HttpClient) { }
+  private _http = inject(HttpClient);
+
+  private commonParams(): HttpParams {
+    return new HttpParams()
+      .set('appid', this.apiKey)
+      .set('lang', navigator.language.split('-')[0]);
+  }
 
   getCurrentWeather(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/weather`;
-    const params = new HttpParams()
+    const params = this.commonParams()
       .set('lat', lat.toString())
       .set('lon', lon.toString())
-      .set('units', 'metric')
-      .set('appid', this.apiKey);
-    return this.http.get<any>(url, { params });
+      .set('units', 'metric');
+    return this._http.get<any>(url, { params });
   }
 
   getForecast(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/forecast`;
-    const params = new HttpParams()
+    const params = this.commonParams()
       .set('lat', lat.toString())
       .set('lon', lon.toString())
-      .set('units', 'metric')
-      .set('appid', this.apiKey);
-    return this.http.get<any>(url, { params });
+      .set('units', 'metric');
+
+    return this._http.get<any>(url, { params });
   }
 
   getAirPollution(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/air_pollution`;
-    const params = new HttpParams()
+    const params = this.commonParams()
       .set('lat', lat.toString())
-      .set('lon', lon.toString())
-      .set('appid', this.apiKey);
-    return this.http.get<any>(url, { params });
+      .set('lon', lon.toString());
+      
+    return this._http.get<any>(url, { params });
   }
 
   getReverseGeo(lat: number, lon: number, limit = 5): Observable<any> {
     const url = `${this.geoApiUrl}/reverse`;
-    const params = new HttpParams()
+    const params = this.commonParams()
       .set('lat', lat.toString())
       .set('lon', lon.toString())
-      .set('limit', limit.toString())
-      .set('appid', this.apiKey);
-    return this.http.get<any>(url, { params });
+      .set('limit', limit.toString());
+      
+    return this._http.get<any>(url, { params });
   }
 
   getGeo(query: string, limit = 5): Observable<any> {
     const url = `${this.geoApiUrl}/direct`;
-    const params = new HttpParams()
+    const params = this.commonParams()
       .set('q', query)
-      .set('limit', limit.toString())
-      .set('appid', this.apiKey);
-    return this.http.get<any>(url, { params });
+      .set('limit', limit.toString());
+      
+    return this._http.get<any>(url, { params });
   }
 }
