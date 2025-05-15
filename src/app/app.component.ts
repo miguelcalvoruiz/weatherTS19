@@ -1,11 +1,11 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HeaderComponent } from './views/header/header.component';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { GeolocationService } from './core/services/geolocation/geolocation.service';
 import { UtilityService } from './core/services/utility/utility.service';
 import { CurrentWeatherComponent } from './views/current-weather/current-weather.component';
+import { FiveDaysForecastComponent } from './views/five-days-forecast/five-days-forecast.component';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,13 @@ import { CurrentWeatherComponent } from './views/current-weather/current-weather
   imports: [
     TranslateModule,
     HeaderComponent,
-    CurrentWeatherComponent
+    CurrentWeatherComponent,
+    FiveDaysForecastComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   private _geolocationService = inject(GeolocationService);
   private _router = inject(Router);
@@ -29,38 +30,31 @@ export class AppComponent implements OnInit, OnDestroy {
   private minimumSpinnerDisplayTime = 1000;
   private lastNavigationStart = 0;
 
-  private subscription = new Subscription();
-
   ngOnInit(): void {
     this.loading.set(true);
-    this.subscription.add(
-      this._geolocationService.getCurrentPosition().subscribe(
-        position => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          this._router.navigateByUrl(`/weather?lat=${lat}&lon=${lon}`);
-        },
-        error => console.error('Error obtaining position:', error)
-      )
-    );
+    this._geolocationService.getCurrentPosition().subscribe({
+      next: position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        this._router.navigateByUrl(`/weather?lat=${lat}&lon=${lon}`);
+      }
+    });
 
-    this.subscription.add(
-      this._route.queryParams.subscribe(params => {
-        const rawLat = params['lat'];
-        const rawLon = params['lon'];
+    this._route.queryParams.subscribe({
+      next: params => {
+        const rawLat = params['lat'], rawLon = params['lon'];
         if (rawLat != null && rawLon != null) {
-          const lat = parseFloat(rawLat);
-          const lon = parseFloat(rawLon);
+          const lat = parseFloat(rawLat), lon = parseFloat(rawLon);
           if (!Number.isNaN(lat) && !Number.isNaN(lon)) {
             this._utilityService.setCoords(lat, lon);
           }
         }
-      })
-    );
+      }
+    });
 
 
-    this.subscription.add(
-      this._router.events.subscribe(event => {
+    this._router.events.subscribe({
+      next: event => {
         if (event instanceof NavigationStart) {
           this.loading.set(true);
           this.lastNavigationStart = Date.now();
@@ -72,15 +66,11 @@ export class AppComponent implements OnInit, OnDestroy {
         ) {
           const navigationTime = Date.now() - this.lastNavigationStart;
           const delay = Math.max(this.minimumSpinnerDisplayTime - navigationTime, 0);
-          setTimeout(() => {
-            this.loading.set(false);
-          }, delay);
+          setTimeout(() => 
+            this.loading.set(false), delay
+          );
         }
-      })
-    );
-  }
-  
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+      }
+    });
   }
 }

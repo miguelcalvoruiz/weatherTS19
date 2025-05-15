@@ -6,11 +6,17 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { WeatherTranslateLoader } from '../../services/locale/translate.loader';
 import { localeInterceptor } from '../../interceptors/locale/locale.interceptor';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
 
 export enum LOCALES {
     EN = 'en',
     ES = 'es'
 }
+
+registerLocaleData(localeEs, 'es');
+registerLocaleData(localeEn, 'en');
 
 const DEFAULT_LOCALE = LOCALES.ES;
 
