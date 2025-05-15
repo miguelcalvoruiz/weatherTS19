@@ -10,6 +10,9 @@
     "current-weather": {
         "now": "Ahora"
     },
+    "five-days-forecast": {
+        "title": "Pronóstico de 5 días"
+    },
     "utility": {
         "air": {
             "quality": {
