@@ -6,6 +6,7 @@ import { GeolocationService } from './core/services/geolocation/geolocation.serv
 import { UtilityService } from './core/services/utility/utility.service';
 import { CurrentWeatherComponent } from './views/current-weather/current-weather.component';
 import { FiveDaysForecastComponent } from './views/five-days-forecast/five-days-forecast.component';
+import { TodayHighlightsComponent } from './views/today-highlights/today-highlights.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { FiveDaysForecastComponent } from './views/five-days-forecast/five-days-
     TranslateModule,
     HeaderComponent,
     CurrentWeatherComponent,
-    FiveDaysForecastComponent
+    FiveDaysForecastComponent,
+    TodayHighlightsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
