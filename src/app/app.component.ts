@@ -7,6 +7,7 @@ import { UtilityService } from './core/services/utility/utility.service';
 import { CurrentWeatherComponent } from './views/current-weather/current-weather.component';
 import { FiveDaysForecastComponent } from './views/five-days-forecast/five-days-forecast.component';
 import { TodayHighlightsComponent } from './views/today-highlights/today-highlights.component';
+import { HourlyForecastComponent } from './views/hourly-forecast/hourly-forecast.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { TodayHighlightsComponent } from './views/today-highlights/today-highlig
     HeaderComponent,
     CurrentWeatherComponent,
     FiveDaysForecastComponent,
-    TodayHighlightsComponent
+    TodayHighlightsComponent,
+    HourlyForecastComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

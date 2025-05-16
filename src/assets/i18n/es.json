@@ -30,6 +30,14 @@
         "feel-like": "Sensación térmica"
     },
 
+    "hourly-forecast": {
+        "title": "Hoy a las",
+        "tab-title": {
+            "weather": "Tiempo",
+            "wind": "Viento"
+        }
+    },
+
     "utility": {
         "air-quality": {
             "level": {
