@@ -113,14 +113,6 @@ export class UtilityService {
     return `${hours}:${mins} ${ampm}`;
   }
 
-  getHours(timeUnix: number, timezone: number): string {
-    const date = new Date((timeUnix + timezone) * 1000);
-    let hours = date.getUTCHours();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    return `${hours} ${ampm}`;
-  }
-
   mpsToKmh(mps: number): number {
     return (mps * 3600) / 1000;
   }
