@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { UtilityService } from '../../core/services/utility/utility.service';
 import { WeatherApiService } from '../../core/services/weather-api/weather-api.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,41 +25,36 @@ export class HourlyForecastComponent {
   forecastList = signal<any[]>([]);
   activeTab = signal<'weather'|'wind'>('weather');
 
-  ngOnInit(): void {
-    this._utility.coords$.subscribe({
-      next: coords => {
-        if (!coords) return;
-        this._weatherApi.getForecast(coords.lat, coords.lon).subscribe({
-          next: forecast => {
-            const now = new Date();
-            const list = forecast.list
-              .filter((it: any) => new Date(it.dt_txt) > now)
-              .slice(0, 8)
-              .map((it: any) => ({
-                dateTime: new Date(it.dt_txt),
-                temp: it.main.temp,
-                icon: it.weather[0].icon,
-                description: it.weather[0].description,
-                windDirection: it.wind.deg,
-                windSpeed: it.wind.speed,
-                probabilityOfRain: it.pop
-              }));
-            this.forecastList.set(list);
-          }
-        });
-      }
+  private coordsEffect = effect(() => {
+    const coords = this._utility.coords();
+    if (!coords) return;
+    this._weatherApi.getForecast(coords.lat, coords.lon).subscribe(forecast => {
+      const now = new Date();
+      const list = forecast.list
+        .filter((forecastItem: any) => new Date(forecastItem.dt_txt) > now)
+        .slice(0, 8)
+        .map((forecastItem: any) => ({
+          dateTime: new Date(forecastItem.dt_txt),
+          temp: forecastItem.main.temp,
+          icon: forecastItem.weather[0].icon,
+          description: forecastItem.weather[0].description,
+          windDirection: forecastItem.wind.deg,
+          windSpeed: forecastItem.wind.speed,
+          probabilforecastItemyOfRain: forecastItem.pop
+        }));
+      this.forecastList.set(list);
     });
+  });
+
+  mpsToKmh(pop: number) { 
+    return this._utility.mpsToKmh(pop); 
   }
 
-  mpsToKmh(mps: number): number {
-    return this._utility.mpsToKmh(mps);
-  }
-
-  rainProbability(pop: number): string {
+  rainProbability(pop: number) { 
     return this._utility.rainProbability(pop);
   }
 
-  setActiveTab(tab: 'weather'|'wind'): void {
+  setActiveTab(tab : 'weather'|'wind') { 
     this.activeTab.set(tab);
   }
 }

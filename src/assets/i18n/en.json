@@ -45,14 +45,14 @@
                 "fair": "Fair",
                 "moderate": "Moderate",
                 "poor": "Poor",
-                "veryPoor": "Very Poor"
+                "very-poor": "Very Poor"
             },
             "message": {
                 "good": "Air quality is considered satisfactory, and air pollution poses little or no risk",
                 "fair": "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.",
                 "moderate": "Members of sensitive groups may experience health effects. The general public is not likely to be affected.",
                 "poor": "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.",
-                "veryPoor": "Health warnings of emergency conditions. The entire population is more likely to be affected."
+                "very-poor": "Health warnings of emergency conditions. The entire population is more likely to be affected."
             }
         },
         "days": {

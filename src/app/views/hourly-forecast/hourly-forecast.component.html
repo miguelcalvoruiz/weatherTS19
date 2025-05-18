@@ -45,7 +45,7 @@
               @for (forecast of forecastList(); track forecast) {
                 <li class="slider-item">
                   <div class="card card-sm slider-card">
-                    <p class="body-3">{{ forecast.dateTime | date:'h a' }}</p>
+                    <p class="body-3">{{ forecast.dateTime | date:'h a':'':'en-US' | uppercase }}</p>
                     <img
                       src="assets/img/weather_icons/direction.png"
                       width="48" height="48"
