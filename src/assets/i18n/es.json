@@ -45,14 +45,14 @@
                 "fair": "Regular",
                 "moderate": "Moderado",
                 "poor": "Pobre",
-                "veryPoor": "Muy Pobre"
+                "very-poor": "Muy Pobre"
             },
             "message": {
                 "good": "La calidad del aire se considera satisfactoria, y la contaminación del aire representa poco o ningún riesgo",
                 "fair": "La calidad del aire es aceptable; sin embargo, para algunos contaminantes puede haber una preocupación moderada por la salud para un número muy pequeño de personas que son inusualmente sensibles a la contaminación del aire.",
                 "moderate": "Los miembros de grupos sensibles pueden experimentar efectos en la salud. El público en general es poco probable que se vea afectado.",
                 "poor": "Todos pueden comenzar a experimentar efectos en la salud; los miembros de grupos sensibles pueden experimentar efectos más graves en la salud.",
-                "veryPoor": "Advertencias de salud sobre condiciones de emergencia. Es más probable que toda la población se vea afectada."
+                "very-poor": "Advertencias de salud sobre condiciones de emergencia. Es más probable que toda la población se vea afectada."
             }
         },
         "days": {
