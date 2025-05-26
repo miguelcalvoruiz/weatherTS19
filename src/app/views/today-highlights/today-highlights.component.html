@@ -4,34 +4,36 @@
             {{ 'today-highlights.title' | translate }}
         </h2>
         <div class="highlight-list">
-            <div class="card card-sm highlight-card one">
-                <h3 class="title-3">{{ 'today-highlights.air-quality' | translate }}</h3>
-                <div class="wrapper">
-                    <span class="m-icon">air</span>
-                    <ul class="card-list">
-                        <li class="card-item">
-                            <p class="title-1">{{ airQuality()?.pm2_5 }}</p>
-                            <p class="label-1">PM<sub>2.5</sub></p>
-                        </li>
-                        <li class="card-item">
-                            <p class="title-1">{{ airQuality()?.so2 }}</p>
-                            <p class="label-1">SO<sub>2</sub></p>
-                        </li>
-                        <li class="card-item">
-                            <p class="title-1">{{ airQuality()?.no2 }}</p>
-                            <p class="label-1">NO<sub>2</sub></p>
-                        </li>
-                        <li class="card-item">
-                            <p class="title-1">{{ airQuality()?.o3 }}</p>
-                            <p class="label-1">O<sub>3</sub></p>
-                        </li>
-                    </ul>
+            @if (airQuality()) {
+                <div class="card card-sm highlight-card one">
+                    <h3 class="title-3">{{ 'today-highlights.air-quality' | translate }}</h3>
+                    <div class="wrapper">
+                        <span class="m-icon">air</span>
+                        <ul class="card-list">
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.pm2_5 }}</p>
+                                <p class="label-1">PM<sub>2.5</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.so2 }}</p>
+                                <p class="label-1">SO<sub>2</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.no2 }}</p>
+                                <p class="label-1">NO<sub>2</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.o3 }}</p>
+                                <p class="label-1">O<sub>3</sub></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="badge api-{{ airQuality()?.aqi }} label-2"
+                        [title]="_utility.getApiText(airQuality()!.aqi).message | translate">
+                        {{ _utility.getApiText(airQuality()!.aqi).level | translate }}
+                    </span>
                 </div>
-                <span class="badge api-{{ airQuality()?.aqi }} label-2"
-                    [title]="_utility.getApiText(airQuality()!.aqi).message | translate">
-                    {{ _utility.getApiText(airQuality()!.aqi).level | translate }}
-                </span>
-            </div>
+            }
             <div class="card card-sm highlight-card two">
                 <h3 class="title-3">{{ 'today-highlights.sunrise-sunset.title' | translate }}</h3>
                 <div class="card-list">

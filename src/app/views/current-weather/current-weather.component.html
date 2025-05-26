@@ -2,7 +2,7 @@
     @if (currentWeatherData())
     {
     <div class="card card-lg current-weather-card">
-        <video #videoElement class="video-background" autoplay loop muted playsinline>
+        <video #videoElement class="video-background" [autoplay]="true" [muted]="true" loop playsinline (canplay)="onCanPlay()">
             <source [src]="'assets/img/animations/' + backgroundVideo()" type="video/webm" />
         </video>
         <div class="card-title">

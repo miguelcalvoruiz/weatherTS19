@@ -14,8 +14,8 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './current-weather.component.scss'
 })
 export class CurrentWeatherComponent implements AfterViewInit, OnDestroy {
-  private weatherApi = inject(WeatherApiService);
-  private utility = inject(UtilityService);
+  private _weatherApi = inject(WeatherApiService);
+  private _utility = inject(UtilityService);
 
   currentWeatherData = signal<any | null>(null);
   backgroundVideo = signal<any | null>('');
@@ -25,43 +25,67 @@ export class CurrentWeatherComponent implements AfterViewInit, OnDestroy {
   videoElement!: ElementRef<HTMLVideoElement>;
 
   private coordsEffect = effect(() => {
-    const coords = this.utility.coords();
+    const coords = this._utility.coords();
     if (!coords) return;
-    this.weatherApi.getCurrentWeather(coords.lat, coords.lon).subscribe(data => {
-      this.currentWeatherData.set({
-        name: data.name,
-        temp: Math.round(data.main.temp),
-        description: data.weather[0].description,
-        icon: data.weather[0].icon,
-        date: this.utility.getDate(data.dt, data.timezone),
-        location: `${data.name}, ${data.sys.country}`
-      });
-      this.backgroundVideo.set(
-        this.utility.getBackgroundVideo(data.weather[0].main)
-      );
-      const video = this.videoElement.nativeElement;
-      video.src = `assets/img/animations/${ this.backgroundVideo() }`;
-      video.load();
-      video.play()
-        .then(() => this.isVideoPlaying.set(true))
-        .catch(() => {});
-    });
-  });
 
-  private onVisibility = () => {
-    if (document.visibilityState === 'visible' && !this.isVideoPlaying()) {
-      this.videoElement.nativeElement.play().catch(() => {});
-    }
-  };
+    this._weatherApi
+      .getCurrentWeather(coords.lat, coords.lon)
+      .subscribe((data) => {
+        this.currentWeatherData.set({
+          name: data.name,
+          temp: Math.round(data.main.temp),
+          description: data.weather[0].description,
+          icon: data.weather[0].icon,
+          date: this._utility.getDate(data.dt, data.timezone),
+          location: `${data.name}, ${data.sys.country}`,
+        });
+        this.backgroundVideo.set(
+          this._utility.getBackgroundVideo(data.weather[0].main)
+        );
+        if (this.videoElement) {
+          this.loadAndPlayVideo();
+        }
+      });
+  });
 
   ngAfterViewInit() {
     document.addEventListener('visibilitychange', this.onVisibility);
     window.addEventListener('focus', this.onVisibility);
+    if (this.backgroundVideo()) {
+      this.loadAndPlayVideo();
+    }
   }
+  
   ngOnDestroy() {
     document.removeEventListener('visibilitychange', this.onVisibility);
     window.removeEventListener('focus', this.onVisibility);
     this.coordsEffect.destroy();
   }
 
+  private onVisibility = () => {
+    if (
+      document.visibilityState === 'visible' &&
+      !this.isVideoPlaying() &&
+      this.videoElement
+    ) {
+      this.videoElement.nativeElement.play().catch(() => {});
+    }
+  };
+
+  private loadAndPlayVideo() {
+    const video = this.videoElement.nativeElement;
+    video.src = `assets/img/animations/${this.backgroundVideo()}`;
+    video.load();
+    video
+      .play()
+      .then(() => this.isVideoPlaying.set(true))
+      .catch(() => {});
+  }
+
+  onCanPlay() {
+    this.videoElement.nativeElement.play().then(() => {
+      this.isVideoPlaying.set(true);
+    }).catch(() => {});
+  }
+  
 }
