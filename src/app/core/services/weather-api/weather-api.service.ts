@@ -3,6 +3,12 @@ import { Injectable, inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { UtilityService } from '../utility/utility.service';
 
+/**
+  * Procesa el pronóstico para obtener un resumen de los próximos 5 días.
+  * @param lat - Latitud.
+  * @param lon - Longitud.
+  * @returns Observable con un arreglo de pronósticos procesados.
+  */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,14 +18,24 @@ export class WeatherApiService {
   private readonly geoApiUrl = 'https://api.openweathermap.org/geo/1.0';
 
   private _http = inject(HttpClient);
-  private _utility = inject(UtilityService)
+  private _utility = inject(UtilityService);
 
+  /**
+   * Construye los parámetros comunes para cada solicitud HTTP.
+   * @returns HttpParams con appid y lang.
+   */
   private commonParams(): HttpParams {
     return new HttpParams()
       .set('appid', this.apiKey)
       .set('lang', navigator.language.split('-')[0]);
   }
 
+  /**
+   * Obtiene el clima actual dado un par de coordenadas.
+   * @param lat - Latitud.
+   * @param lon - Longitud.
+   * @returns Observable con los datos del clima actual.
+   */
   getCurrentWeather(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/weather`;
     const params = this.commonParams()
@@ -29,6 +45,12 @@ export class WeatherApiService {
     return this._http.get<any>(url, { params });
   }
 
+  /**
+   * Obtiene el pronóstico meteorológico para las próximas horas.
+   * @param lat - Latitud.
+   * @param lon - Longitud.
+   * @returns Observable con el pronóstico.
+   */
   getForecast(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/forecast`;
     const params = this.commonParams()
@@ -39,6 +61,12 @@ export class WeatherApiService {
     return this._http.get<any>(url, { params });
   }
 
+  /**
+   * Procesa el pronóstico para obtener un resumen de los próximos 5 días.
+   * @param lat - Latitud.
+   * @param lon - Longitud.
+   * @returns Observable con un arreglo de pronósticos procesados.
+   */
   getProcessedForecast(lat: number, lon: number): Observable<any[]> {
     return this.getForecast(lat, lon).pipe(
       map(data => {
@@ -78,6 +106,12 @@ export class WeatherApiService {
     );
   }
 
+  /**
+   * Obtiene los datos de calidad del aire para las coordenadas proporcionadas.
+   * @param lat - Latitud.
+   * @param lon - Longitud.
+   * @returns Observable con los datos de calidad del aire.
+   */
   getAirPollution(lat: number, lon: number): Observable<any> {
     const url = `${this.apiUrl}/air_pollution`;
     const params = this.commonParams()
@@ -87,16 +121,12 @@ export class WeatherApiService {
     return this._http.get<any>(url, { params });
   }
 
-  getReverseGeo(lat: number, lon: number, limit = 5): Observable<any> {
-    const url = `${this.geoApiUrl}/reverse`;
-    const params = this.commonParams()
-      .set('lat', lat.toString())
-      .set('lon', lon.toString())
-      .set('limit', limit.toString());
-      
-    return this._http.get<any>(url, { params });
-  }
-
+  /**
+   * Realiza la geocodificación directa a partir de una consulta en el header.
+   * @param query - Consulta de ubicación.
+   * @param limit - Límite de resultados (por defecto 5).
+   * @returns Observable con los resultados de la geocodificación.
+   */
   getGeo(query: string, limit = 5): Observable<any> {
     const url = `${this.geoApiUrl}/direct`;
     const params = this.commonParams()

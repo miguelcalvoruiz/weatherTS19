@@ -24,7 +24,7 @@
             @if (searching()) {
                 <div class="search-result active">
                     <ul class="view-list">
-                        @for (location of searchResults(); track location) {
+                        @for (location of searchResults(); track location.lat + '-' + location.lon) {
                             <li class="view-item">
                                 <span class="m-icon">location_on</span>
                                 <div>

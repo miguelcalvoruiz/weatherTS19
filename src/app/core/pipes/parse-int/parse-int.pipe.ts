@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Convierte un valor a entero utilizando parseInt.
+ */
 @Pipe({
   name: 'parseInt'
 })

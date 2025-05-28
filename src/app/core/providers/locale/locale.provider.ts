@@ -10,16 +10,25 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
 
+/**
+ * Enum que define los códigos de idioma soportados por la aplicación.
+ */
 export enum LOCALES {
     EN = 'en',
     ES = 'es'
 }
 
+/**
+ * Registra los datos de localización para los idiomas soportados.
+ */
 registerLocaleData(localeEs, 'es');
 registerLocaleData(localeEn, 'en');
 
 const DEFAULT_LOCALE = LOCALES.ES;
 
+/**
+ * Devuelve el idioma predeterminado basado en la configuración del navegador.
+ */
 function localeIdFactory(): string {
     const nav = navigator.language;
     if (nav.startsWith('es')) return LOCALES.ES;
@@ -27,6 +36,10 @@ function localeIdFactory(): string {
     return DEFAULT_LOCALE;
 }
 
+/**
+ * Crea una instancia de WeatherTranslateLoader para cargar archivos de traducción.
+ * @param httpBackend - Backend HTTP para evitar interceptores.
+ */
 const httpLoaderFactory = (httpBackend: HttpBackend) => {
     return new WeatherTranslateLoader(
         new HttpClient(httpBackend),
@@ -35,6 +48,10 @@ const httpLoaderFactory = (httpBackend: HttpBackend) => {
     );
 };
 
+/**
+ * Proporciona los providers necesarios para la localización de la aplicación,
+ * incluyendo configuración de idioma, adaptador de fechas y módulo de traducción.
+ */
 export function provideLocales(): (Provider | EnvironmentProviders)[] {
     return [
         { provide: LOCALE_ID, useFactory: localeIdFactory },
