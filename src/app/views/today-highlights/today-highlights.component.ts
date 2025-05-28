@@ -19,6 +19,9 @@ export class TodayHighlightsComponent {
   private _weatherApi = inject(WeatherApiService);
   public _utility = inject(UtilityService);
 
+  /**
+   * Señales con todos los datos a mostrar
+   */
   airQuality = signal<{
     aqi: number;
     pm2_5: string;
@@ -34,6 +37,10 @@ export class TodayHighlightsComponent {
   pressure = signal(0);
   humidity = signal(0);
 
+  /**
+   * Efecto que se ejecuta al obtener las coordenadas del usuario.
+   * Realiza llamadas a la API para obtener la calidad del aire y los datos meteorológicos actuales.
+   */
   private coordsEffect = effect(() => {
     const coords = this._utility.coords();
     if (!coords) return;

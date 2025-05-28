@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Capitaliza la primera palabra de una cadena.
+ */
 @Pipe({
   name: 'capitalizeFirstWord',
   standalone: true,

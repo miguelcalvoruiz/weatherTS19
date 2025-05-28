@@ -16,17 +16,40 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  /**
+   * Término de búsqueda introducido por el usuario.
+   */
   searchTerm = signal('');
+  /**
+   * Resultados de búsqueda obtenidos de la API.
+   */
   searchResults = signal<any[]>([]);
+  /**
+   * Indica si se está mostrando el campo de búsqueda.
+   */
   searching = signal(false);
+  /**
+   * Referencia al temporizador para controlar el debounce de la búsqueda.
+   */
   private _searchTimeout: any;
+  /**
+   * Inyeccion de servicios para obtener datos meteorológicos,
+   * y el enrutamiento para navegar entre vistas
+   */
   private _weatherApi = inject(WeatherApiService);
   private _router = inject(Router)
 
+  /**
+   * Alterna la visibilidad del campo de búsqueda.
+   */
   toggleSearch(): void {
     this.searching.update(prev => !prev);
   }
 
+  /**
+   * Realiza una búsqueda de ubicaciones basada en el término introducido.
+   * Utiliza un debounce para evitar múltiples llamadas a la API en rápida sucesión.
+   */
   search(): void {
     clearTimeout(this._searchTimeout);
     const term = this.searchTerm();
@@ -48,12 +71,21 @@ export class HeaderComponent {
     }, 50);    
   }
 
+  /**
+   * Limpia los resultados de búsqueda y restablece el estado del campo de búsqueda.
+   */
   clearSearchResults(): void {
     this.searchTerm.set('');
     this.searchResults.set([]);
     this.searching.set(false);
   }
 
+  /**
+   * Navega a la vista del clima para las coordenadas seleccionadas.
+   * @param lat - Latitud de la ubicación seleccionada.
+   * @param lon - Longitud de la ubicación seleccionada.
+   * @param event - Evento del clic para prevenir el comportamiento por defecto.
+   */
   navigateToWeather(lat: number, lon: number, event: Event): void {
     event.preventDefault();
     this.clearSearchResults();
