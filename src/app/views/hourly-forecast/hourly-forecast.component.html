@@ -1,0 +1,65 @@
+<section class="section hourly-forecast">
+    <div class="card card-lg">
+      <h2 class="title-2">{{ 'hourly-forecast.title' | translate }}</h2>
+  
+      <div class="tabs">
+        <button (click)="setActiveTab('weather')" [class.active]="activeTab() === 'weather'">
+          {{ 'hourly-forecast.tab-title.weather' | translate }}
+        </button>
+        <button (click)="setActiveTab('wind')" [class.active]="activeTab() === 'wind'">
+          {{ 'hourly-forecast.tab-title.wind' | translate }}
+        </button>
+      </div>
+  
+      @if (activeTab() === 'weather') {
+        <div class="tab-content weather">
+          <div class="slider-container">
+            <ul class="slider-list">
+              @for (forecast of forecastList(); track forecast) {
+                <li class="slider-item">
+                  <div class="card card-sm slider-card">
+                    <p class="body-3">{{ forecast.dateTime | date:'h a':'':'en-US' | uppercase }}</p>
+                    <p class="label-1 rain-probability" [class.visible]="forecast.probabilityOfRain > 0.3">
+                      {{ rainProbability(forecast.probabilityOfRain) }}
+                    </p>
+                    <img
+                      [src]="'assets/img/weather_icons/' + forecast.icon + '.png'"
+                      width="48" height="48"
+                      [alt]="forecast.description"
+                      class="weather-icon"
+                      [title]="forecast.description | capitalizeFirstWord"
+                    />
+                    <p class="body-3">{{ forecast.temp | parseInt }}&deg;<sup>c</sup></p>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+  
+      @if (activeTab() === 'wind') {
+        <div class="tab-content wind">
+          <div class="slider-container">
+            <ul class="slider-list">
+              @for (forecast of forecastList(); track forecast) {
+                <li class="slider-item">
+                  <div class="card card-sm slider-card">
+                    <p class="body-3">{{ forecast.dateTime | date:'h a':'':'en-US' | uppercase }}</p>
+                    <img
+                      src="assets/img/weather_icons/direction.png"
+                      width="48" height="48"
+                      class="weather-icon"
+                      [style.transform]="'rotate(' + (forecast.windDirection - 180) + 'deg)'"
+                    />
+                    <p class="body-3">{{ mpsToKmh(forecast.windSpeed) | parseInt }} km/h</p>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+  

@@ -1,0 +1,88 @@
+<section class="section highlights">
+    <div class="card card-lg">
+        <h2 class="title-2" id="highlights-label">
+            {{ 'today-highlights.title' | translate }}
+        </h2>
+        <div class="highlight-list">
+            @if (airQuality()) {
+                <div class="card card-sm highlight-card one">
+                    <h3 class="title-3">{{ 'today-highlights.air-quality' | translate }}</h3>
+                    <div class="wrapper">
+                        <span class="m-icon">air</span>
+                        <ul class="card-list">
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.pm2_5 }}</p>
+                                <p class="label-1">PM<sub>2.5</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.so2 }}</p>
+                                <p class="label-1">SO<sub>2</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.no2 }}</p>
+                                <p class="label-1">NO<sub>2</sub></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="title-1">{{ airQuality()?.o3 }}</p>
+                                <p class="label-1">O<sub>3</sub></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="badge api-{{ airQuality()?.aqi }} label-2"
+                        [title]="_utility.getApiText(airQuality()!.aqi).message | translate">
+                        {{ _utility.getApiText(airQuality()!.aqi).level | translate }}
+                    </span>
+                </div>
+            }
+            <div class="card card-sm highlight-card two">
+                <h3 class="title-3">{{ 'today-highlights.sunrise-sunset.title' | translate }}</h3>
+                <div class="card-list">
+                    <div class="card-item">
+                        <span class="m-icon">clear_day</span>
+                        <div>
+                            <p class="label-1">{{ 'today-highlights.sunrise-sunset.sunrise' | translate }}</p>
+                            <p class="title-1">{{ sunriseTime() }}</p>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <span class="m-icon">clear_night</span>
+                        <div>
+                            <p class="label-1">{{ 'today-highlights.sunrise-sunset.sunset' | translate }}</p>
+                            <p class="title-1">{{ sunsetTime() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-sm highlight-card">
+                <h3 class="title-3">{{ 'today-highlights.humidity' | translate }}</h3>
+                <div class="wrapper">
+                    <span class="m-icon">humidity_percentage</span>
+                    <p class="title-1">{{ humidity() }}<sub>%</sub></p>
+                </div>
+            </div>
+            <div class="card card-sm highlight-card">
+                <h3 class="title-3">{{ 'today-highlights.pressure' | translate }}</h3>
+                <div class="wrapper">
+                    <span class="m-icon">airwave</span>
+                    <p class="title-1">{{ pressure() }}<sub>hPa</sub></p>
+                </div>
+            </div>
+            <div class="card card-sm highlight-card">
+                <h3 class="title-3">{{ 'today-highlights.visibility' | translate }}</h3>
+                <div class="wrapper">
+                    <span class="m-icon">visibility</span>
+                    <p class="title-1">
+                        {{ visibility() ?? 'N/A' | parseInt }}<sub>Km</sub>
+                    </p>
+                </div>
+            </div>
+            <div class="card card-sm highlight-card">
+                <h3 class="title-3">{{ 'today-highlights.feel-like' | translate }}</h3>
+                <div class="wrapper">
+                    <span class="m-icon">thermostat</span>
+                    <p class="title-1">{{ feelsLike() | parseInt }}&deg;<sup>c</sup></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

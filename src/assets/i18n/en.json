@@ -1,0 +1,82 @@
+{
+    "header": {
+        "placeholder-search": "Search city...",
+        "current-location": "Current location",
+        "aria-label": {
+            "open-search": "Open search of city",
+            "close-search": "Close search"
+        }
+    },
+
+    "current-weather": {
+        "now": "Now"
+    },
+
+    "five-days-forecast": {
+        "title": "5 Days Forecast"
+    },
+
+    "today-highlights": {
+        "title": "Today's Highlights",
+        "air-quality": "Air Quality",
+        "sunrise-sunset": {
+            "title": "Sunrise & Sunset",
+            "sunrise": "Sunrise",
+            "sunset": "Sunset"
+        },
+        "humidity": "Humidity",
+        "pressure": "Air pressure",
+        "visibility": "Visibility",
+        "feel-like": "Feels like"
+    },
+
+    "hourly-forecast": {
+        "title": "Today at",
+        "tab-title": {
+            "weather": "Weather",
+            "wind": "Wind"
+        }
+    },
+
+    "utility": {
+        "air-quality": {
+            "level": {
+                "good": "Good",
+                "fair": "Fair",
+                "moderate": "Moderate",
+                "poor": "Poor",
+                "very-poor": "Very Poor"
+            },
+            "message": {
+                "good": "Air quality is considered satisfactory, and air pollution poses little or no risk",
+                "fair": "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.",
+                "moderate": "Members of sensitive groups may experience health effects. The general public is not likely to be affected.",
+                "poor": "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.",
+                "very-poor": "Health warnings of emergency conditions. The entire population is more likely to be affected."
+            }
+        },
+        "days": {
+            "sunday": "Sunday",
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday"
+        },
+        "months": {
+            "january": "Jan",
+            "february": "Feb",
+            "march": "Mar",
+            "april": "Apr",
+            "may": "May",
+            "june": "Jun",
+            "july": "Jul",
+            "august": "Aug",
+            "september": "Sep",
+            "october": "Oct",
+            "november": "Nov",
+            "december": "Dec"
+        }
+    }
+}
