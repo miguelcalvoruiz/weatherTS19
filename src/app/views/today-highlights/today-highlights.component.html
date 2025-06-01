@@ -29,8 +29,8 @@
                         </ul>
                     </div>
                     <span class="badge api-{{ airQuality()?.aqi }} label-2"
-                        [title]="_utility.getApiText(airQuality()!.aqi).message | translate">
-                        {{ _utility.getApiText(airQuality()!.aqi).level | translate }}
+                        [title]="_utility.getAqiText(airQuality()!.aqi).message | translate">
+                        {{ _utility.getAqiText(airQuality()!.aqi).level | translate }}
                     </span>
                 </div>
             }
