@@ -95,7 +95,7 @@ export class UtilityService {
    * @param level - Nivel de calidad del aire.
    * @returns Objeto con propiedades level y message.
    */
-  getApiText(level: number): { level: string; message: string } {
+  getAqiText(level: number): { level: string; message: string } {
     const txt = this.apiTextMap[level] ?? { level: '', message: '' };
     return {
       level: this.translate.instant(txt.level),

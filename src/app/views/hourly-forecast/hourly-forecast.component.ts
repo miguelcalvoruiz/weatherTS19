@@ -51,7 +51,7 @@ export class HourlyForecastComponent {
           description: forecastItem.weather[0].description,
           windDirection: forecastItem.wind.deg,
           windSpeed: forecastItem.wind.speed,
-          probabilforecastItemyOfRain: forecastItem.pop
+          probabilityOfRain: forecastItem.pop
         }));
       this.forecastList.set(list);
     });

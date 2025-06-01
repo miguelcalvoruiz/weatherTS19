@@ -1,11 +1,10 @@
-import { HTTP_INTERCEPTORS, HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { importProvidersFrom, LOCALE_ID, EnvironmentProviders, Provider } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { WeatherTranslateLoader } from '../../services/locale/translate.loader';
-import { localeInterceptor } from '../../interceptors/locale/locale.interceptor';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
@@ -74,7 +73,6 @@ export function provideLocales(): (Provider | EnvironmentProviders)[] {
                     deps: [HttpBackend]
                 }
             })
-        ),
-        { provide: HTTP_INTERCEPTORS, useValue: localeInterceptor, multi: true }
+        )
     ];
 }

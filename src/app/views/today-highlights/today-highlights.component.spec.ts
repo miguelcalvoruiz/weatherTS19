@@ -16,7 +16,7 @@ describe('TodayHighlightsComponent', () => {
   let fakeUtilityService: {
     coords: WritableSignal<{ lat: number; lon: number } | null>;
     getTime: jasmine.Spy;
-    getApiText: jasmine.Spy;
+    getAqiText: jasmine.Spy;
   };
 
   beforeEach(waitForAsync(() => {
@@ -25,10 +25,10 @@ describe('TodayHighlightsComponent', () => {
     fakeUtilityService = {
       coords: coordsSignal,
       getTime: jasmine.createSpy('getTime'),
-      getApiText: jasmine.createSpy('getApiText')
+      getAqiText: jasmine.createSpy('getAqiText')
     };
 
-    fakeUtilityService.getApiText.and.callFake((aqi: number) => ({
+    fakeUtilityService.getAqiText.and.callFake((aqi: number) => ({
       level: `Level${aqi}`,
       message: `Message for AQI ${aqi}`
     }));
